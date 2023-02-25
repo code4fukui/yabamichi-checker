@@ -18,8 +18,8 @@ async function routeAPI(searchParams) {
     searchParams.get("to_lat"),
     searchParams.get("to_lng"),
   );
-  const body = (await from.to(to).searchRoute()).toJson();
-  return new JSONResponse(body);
+  const route = (await from.to(to).searchRoute());
+  return new JSONResponse(route);
 }
 
 class Point {
@@ -46,17 +46,7 @@ class FromTo {
     const resp = await fetch(url);
     const json = await resp.json();
     const coords = json.features[0].geometry.coordinates;
-    return new Route(coords.map((a) => new Point(a[1], a[0])));
-  }
-}
-
-class Route {
-  constructor(coords) {
-    this.coords = coords;
-  }
-
-  toJson() {
-    return JSON.stringify(this.coords);
+    return coords.map((a) => new Point(a[1], a[0]));
   }
 }
 
@@ -67,13 +57,14 @@ class NotFoundResponse extends Response {
 }
 
 class JSONResponse extends Response {
-  constructor(body) {
+  constructor(json) {
     const init = {
       headers: {
         "content-type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
     };
+    const body = JSON.stringify(json);
     super(body, init);
   }
 }
