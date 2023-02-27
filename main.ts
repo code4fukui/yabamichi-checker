@@ -9,37 +9,35 @@ serve(async (req) => {
   return new NotFoundResponse();
 });
 
-async function routeAPI(searchParams: URLSearchParams) {
-  const fromLat = Number(searchParams.get("from_lat"));
-  const fromLng = Number(searchParams.get("from_lng"));
-  const toLat = Number(searchParams.get("to_lat"));
-  const toLng = Number(searchParams.get("to_lng"));
-  if (isNaN(fromLat) || isNaN(fromLng) || isNaN(toLat) || isNaN(toLng)) {
-    return new BadRequestResponse();
-  }
-
-  const from = new Point(fromLat, fromLng);
-  const to = new Point(toLat, toLng);
+async function routeAPI(searchParams) {
+  const from = new Point(
+    searchParams.get("from_lat"),
+    searchParams.get("from_lng"),
+  );
+  const to = new Point(
+    searchParams.get("to_lat"),
+    searchParams.get("to_lng"),
+  );
   const route = (await from.to(to).searchRoute());
   return new JSONResponse(route);
 }
 
 class Point {
-  constructor(
-    public lat: number,
-    public lng: number,
-  ) {}
+  constructor(lat, lng) {
+    this.lat = lat;
+    this.lng = lng;
+  }
 
-  to(point: Point) {
+  to(point) {
     return new FromTo(this, point);
   }
 }
 
 class FromTo {
-  constructor(
-    public from: Point,
-    public to: Point,
-  ) {}
+  constructor(from, to) {
+    this.from = from;
+    this.to = to;
+  }
 
   async searchRoute() {
     const key = Deno.env.get("token");
@@ -48,13 +46,7 @@ class FromTo {
     const resp = await fetch(url);
     const json = await resp.json();
     const coords = json.features[0].geometry.coordinates;
-    return coords.map((a: number[]) => new Point(a[1], a[0]));
-  }
-}
-
-class BadRequestResponse extends Response {
-  constructor() {
-    super(null, { status: 400 });
+    return coords.map((a) => new Point(a[1], a[0]));
   }
 }
 
@@ -65,7 +57,7 @@ class NotFoundResponse extends Response {
 }
 
 class JSONResponse extends Response {
-  constructor(json: any) {
+  constructor(json) {
     const init = {
       headers: {
         "content-type": "application/json",
