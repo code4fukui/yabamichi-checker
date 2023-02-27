@@ -1,3 +1,4 @@
 .replit
 replit.nix
 .deno/*
+lock.json
