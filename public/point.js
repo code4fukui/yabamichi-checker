@@ -24,7 +24,7 @@ export class Point {
   }
 
   // 危険地帯抽出
-  async searchSpot() {
+  searchSpot() {
     return data.filter((a) => {
       const point = new Point(a.lat, a.lng);
       const fromTo = this.to(point);

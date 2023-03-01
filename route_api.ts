@@ -1,5 +1,4 @@
 import { Point } from "./point.ts";
-import { JSONResponse } from "./resp.ts";
 
 export async function routeAPI(searchParams: URLSearchParams) {
   const from = new Point(
@@ -10,6 +9,5 @@ export async function routeAPI(searchParams: URLSearchParams) {
     Number(searchParams.get("to_lat")),
     Number(searchParams.get("to_lng")),
   );
-  const route = (await from.to(to).searchRoute());
-  return new JSONResponse(route);
+  return (await from.to(to).searchRoute());
 }
