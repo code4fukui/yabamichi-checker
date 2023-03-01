@@ -8,7 +8,7 @@ export class FromTo {
 
   // ルート検索
   async searchRoute() {
-    const urlbase = "https://yabamichi-checker-api.deno.dev/route";
+    const urlbase = "/route";
     const url =
       `${urlbase}?from_lat=${this.from.lat}&from_lng=${this.from.lng}&to_lat=${this.to.lat}&to_lng=${this.to.lng}&`;
     const resp = await fetch(url);
