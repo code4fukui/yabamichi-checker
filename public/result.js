@@ -1,52 +1,38 @@
 import { showMap } from "./map.js";
-import { Point } from "./point.js";
 
 const summary = document.getElementById("summary");
-
 const map = showMap("map");
 
 // パラメータ
 const param = new URLSearchParams(location.search);
+const fromLat = param.get("from_lat");
+const fromLng = param.get("from_lng");
+const toLat = param.get("to_lat");
+const toLng = param.get("to_lng");
 
-const from = new Point(
-  parseFloat(param.get("from_lat")),
-  parseFloat(param.get("from_lng")),
-);
+onload = async () => {
+  // ルート検索
+  const url =
+    `/route?from_lat=${fromLat}&from_lng=${fromLng}&to_lat=${toLat}&to_lng=${toLng}&`;
+  const resp = await fetch(url);
+  const route = await resp.json();
 
-const to = new Point(
-  parseFloat(param.get("to_lat")),
-  parseFloat(param.get("to_lng")),
-);
+  const opt = {
+    "color": "#FF0000",
+    "weight": 5,
+    "opacity": 0.6,
+  };
+  L.polyline(route.line, opt).addTo(map);
 
-const fromTo = from.to(to);
+  // 危険地帯表示
+  const bindOpt = {
+    permanent: true,
+    className: "my-label",
+    offset: [1, 1],
+  };
 
-// ルート表示
-const route = await fromTo.searchRoute();
-const opt = {
-  "color": "#FF0000",
-  "weight": 5,
-  "opacity": 0.6,
-};
-L.polyline(route.line, opt).addTo(map);
-
-// 危険地帯表示
-let i = 1;
-const set = new Set();
-for (const pos of route.line) {
-  const point = new Point(pos.lat, pos.lng);
-  const spots = await point.searchSpot();
-  for (const spot of spots) {
-    const key = JSON.stringify(spot);
-    if (set.has(key)) {
-      continue;
-    }
-    set.add(key);
-
-    const bindOpt = {
-      permanent: true,
-      className: "my-label",
-      offset: [1, 1],
-    };
+  let i = 1;
+  for (const spot of route.dangerSpots) {
     const txt = spot.txt.replaceAll("\n", "<br>");
     new L.Marker([spot.lat, spot.lng])
       .bindPopup(txt)
@@ -56,4 +42,4 @@ for (const pos of route.line) {
     summary.innerHTML += "<li>" + txt + "</li>";
     i++;
   }
-}
+};

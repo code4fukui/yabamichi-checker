@@ -8,9 +8,7 @@ const toLng = document.getElementById("to-lng");
 const ok = document.getElementById("ok");
 const submit = document.getElementById("submit");
 
-// 地図
 const map = showMap("map");
-map.on("click", selectFrom);
 
 let homeMarker;
 // 出発地選択
@@ -44,3 +42,8 @@ function selectTo(e) {
   toLng.value = e.latlng.lng;
   submit.style.display = "inline";
 }
+
+onload = () => {
+  // 地図
+  map.on("click", selectFrom);
+};

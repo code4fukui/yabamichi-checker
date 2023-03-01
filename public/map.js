@@ -1,4 +1,4 @@
-import { L } from "./deps.js";
+import L from "https://code4sabae.github.io/leaflet-mjs/leaflet.mjs";
 
 const tile = "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png";
 const attribution =
