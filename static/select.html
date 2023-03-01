@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang='ja'>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>やば道チェッカー</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="select.js"></script>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div id="select-msg">出発地をタップしてください</div>
+  <button id="ok" style="display: none">OK</button>
+  <form action="result.html">
+    <input type="hidden" name="from_lat" id="from-lat">
+    <input type="hidden" name="from_lng" id="from-lng">
+    <input type="hidden" name="to_lat" id="to-lat">
+    <input type="hidden" name="to_lng" id="to-lng">
+    <button id="submit" style="display: none">OK</button>
+  </form>
+</body>
+
+</html>

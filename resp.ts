@@ -5,7 +5,7 @@ export class NotFoundResponse extends Response {
 }
 
 export class JSONResponse extends Response {
-  constructor(json) {
+  constructor(json: { lat: number; lng: number }[]) {
     const init = {
       headers: {
         "content-type": "application/json",

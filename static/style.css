@@ -1,0 +1,19 @@
+@import url("https://cdn.jsdelivr.net/npm/water.css@2/out/light.css");
+@import url("https://code4sabae.github.io/leaflet-mjs/leaflet.css");
+
+h1 {
+  color: dimgray;
+  text-align: center;
+}
+
+#map {
+  height: 400px;
+}
+
+.msg {
+  color: blue;
+}
+
+body {
+  text-align: center;
+}
