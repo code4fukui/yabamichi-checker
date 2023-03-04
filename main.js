@@ -134,7 +134,7 @@ class Point {
 }
 
 // データ取得
-const resp = Deno.readTextFileSync("./data.json");
+const resp = await Deno.readTextFile("./data.json");
 Point.data = JSON.parse(resp).map((row) => {
   const safePos = Geo3x3.decode(row.geo);
   return {
