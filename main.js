@@ -2,23 +2,6 @@ import { serve } from "https://deno.land/std@0.178.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.178.0/http/file_server.ts";
 import { Geo3x3 } from "https://taisukef.github.io/Geo3x3/Geo3x3.js";
 
-serve(async (req) => {
-  // ルーティング
-  const router = [
-    { pathname: "/", handler: Index },
-    { pathname: "/select", handler: Select },
-    { pathname: "/result", handler: Result },
-  ];
-
-  for (const r of router) {
-    const pat = new URLPattern({ pathname: r.pathname });
-    if (pat.test(req.url)) {
-      return await new r.handler(req).response();
-    }
-  }
-  return serveDir(req, { fsRoot: "./static/" });
-});
-
 class Page {
   constructor(req) {
     this.req = req;
@@ -209,3 +192,20 @@ class FromTo {
     }
   }
 }
+
+serve(async (req) => {
+  // ルーティング
+  const router = [
+    { pathname: "/", handler: Index },
+    { pathname: "/select", handler: Select },
+    { pathname: "/result", handler: Result },
+  ];
+
+  for (const r of router) {
+    const pat = new URLPattern({ pathname: r.pathname });
+    if (pat.test(req.url)) {
+      return await new r.handler(req).response();
+    }
+  }
+  return serveDir(req, { fsRoot: "./static/" });
+});
