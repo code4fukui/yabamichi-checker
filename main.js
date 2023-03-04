@@ -2,25 +2,6 @@ import { serve } from "https://deno.land/std@0.178.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.178.0/http/file_server.ts";
 import { Geo3x3 } from "https://taisukef.github.io/Geo3x3/Geo3x3.js";
 
-onload = () => {
-  // ルーティング
-  const router = [
-    { pathname: "/", handler: Index },
-    { pathname: "/select", handler: Select },
-    { pathname: "/result", handler: Result },
-  ];
-
-  serve(async (req) => {
-    for (const r of router) {
-      const pat = new URLPattern({ pathname: r.pathname });
-      if (pat.test(req.url)) {
-        return await new r.handler(req).response();
-      }
-    }
-    return serveDir(req, { fsRoot: "./static/" });
-  });
-};
-
 class Page {
   constructor(req) {
     this.req = req;
@@ -132,19 +113,6 @@ class Result extends Page {
 
 // 一点
 class Point {
-  static {
-    // データ取得
-    const resp = Deno.readTextFileSync("./data.json");
-    Point.data = JSON.parse(resp).map((row) => {
-      const safePos = Geo3x3.decode(row.geo);
-      return {
-        lat: safePos.lat,
-        lng: safePos.lng,
-        txt: row.txt,
-      };
-    });
-  }
-
   constructor(lat, lng) {
     this.lat = lat;
     this.lng = lng;
@@ -164,6 +132,17 @@ class Point {
     });
   }
 }
+
+// データ取得
+const resp = await Deno.readTextFile("./data.json");
+Point.data = JSON.parse(resp).map((row) => {
+  const safePos = Geo3x3.decode(row.geo);
+  return {
+    lat: safePos.lat,
+    lng: safePos.lng,
+    txt: row.txt,
+  };
+});
 
 // 始点終点
 class FromTo {
@@ -211,3 +190,20 @@ class FromTo {
     }
   }
 }
+
+serve(async (req) => {
+  // ルーティング
+  const router = [
+    { pathname: "/", handler: Index },
+    { pathname: "/select", handler: Select },
+    { pathname: "/result", handler: Result },
+  ];
+
+  for (const r of router) {
+    const pat = new URLPattern({ pathname: r.pathname });
+    if (pat.test(req.url)) {
+      return await new r.handler(req).response();
+    }
+  }
+  return serveDir(req, { fsRoot: "./static/" });
+});
