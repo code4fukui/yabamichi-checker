@@ -113,19 +113,6 @@ class Result extends Page {
 
 // 一点
 class Point {
-  static {
-    // データ取得
-    const resp = Deno.readTextFileSync("./data.json");
-    Point.data = JSON.parse(resp).map((row) => {
-      const safePos = Geo3x3.decode(row.geo);
-      return {
-        lat: safePos.lat,
-        lng: safePos.lng,
-        txt: row.txt,
-      };
-    });
-  }
-
   constructor(lat, lng) {
     this.lat = lat;
     this.lng = lng;
@@ -145,6 +132,17 @@ class Point {
     });
   }
 }
+
+// データ取得
+const resp = Deno.readTextFileSync("./data.json");
+Point.data = JSON.parse(resp).map((row) => {
+  const safePos = Geo3x3.decode(row.geo);
+  return {
+    lat: safePos.lat,
+    lng: safePos.lng,
+    txt: row.txt,
+  };
+});
 
 // 始点終点
 class FromTo {
