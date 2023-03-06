@@ -30,7 +30,7 @@ onload = () => {
   });
 
   const icon = new LeafIcon({
-    iconUrl: "warning.png",
+    iconUrl: "./warning.png",
   });
   for (const spot of dangerSpots) {
     const txt = spot.txt.replaceAll("\n", "<br>");
