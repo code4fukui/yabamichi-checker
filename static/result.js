@@ -2,8 +2,8 @@ import { showMap } from "./map.js";
 
 onload = () => {
   const mapE = document.getElementById("map");
-  const line = JSON.parse(mapE.dataset.line);
-  const dangerSpots = JSON.parse(mapE.dataset.dangerSpots);
+  const line = JSON.parse(unescape(mapE.dataset.line));
+  const dangerSpots = JSON.parse(unescape(mapE.dataset.dangerSpots));
 
   const map = showMap("map");
   const opt = {
@@ -30,7 +30,7 @@ onload = () => {
   });
 
   const icon = new LeafIcon({
-    iconUrl: "warning.png",
+    iconUrl: "./warning.png",
   });
   for (const spot of dangerSpots) {
     const txt = spot.txt.replaceAll("\n", "<br>");
