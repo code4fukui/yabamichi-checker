@@ -1,0 +1,29 @@
+<!DOCTYPE html><html><head>
+<title>武生高校前交差点</title>
+<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+<script type="module">
+</script>
+</head>
+
+<body>
+<a-scene id="scene" background="color: #333" renderer="colorManagement: true">
+  <a-assets timeout="10000">
+    <a-asset-item id="sabae" src="https://code4fukui.github.io/kunitaka-photo-2/%E6%AD%A6%E7%94%9F%E9%AB%98%E6%A0%A1%E5%89%8D%E4%BA%A4%E5%B7%AE%E7%82%B92.glb"></a-asset-item>
+  </a-assets>
+  <a-entity gltf-model="#sabae" position="0 0 0"></a-entity>
+  <a-entity light="type: ambient; color: #FFF"></a-entity>
+  <!--
+  <a-entity light="type: directional; color: #FFF; intensity: .5" position="-1 -1 -.5"></a-entity>
+  <a-entity light="type: directional; color: #FFF; intensity: 1" position="1 1 .5"></a-entity>
+  -->
+    <!--<a-plane color="#888" height="300" width="300" rotation="-90 0 0"></a-plane>-->
+    <!-- <a-sphere id="sphere" color="#f22"></a-sphere> -->
+  <a-entity id="cameraRig">
+    <a-entity id="head" camera position="0 1.7 0" wasd-controls look-controls></a-entity>
+    <a-entity oculus-touch-controls="hand:left" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
+    <a-entity oculus-touch-controls="hand:right" teleport-controls="button:trigger; collisionEntities:.collidable; cameraRig:#cameraRig; teleportOrigin:#head;"></a-entity>
+  </a-entity>
+</a-scene>
+</body>
+</html>

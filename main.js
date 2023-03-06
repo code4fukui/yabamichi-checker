@@ -18,6 +18,7 @@ serve(async (req) => {
     const pat = new URLPattern({ pathname: r.pathname });
     if (pat.test(req.url)) {
       const page = new r.handler(req);
+      console.log(page.render());
       return await page.render();
     }
   }

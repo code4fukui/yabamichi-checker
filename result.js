@@ -1,5 +1,6 @@
 import { Page } from "./page.js";
 import { Point } from "./route.js";
+import { escape } from "https://deno.land/x/html_escape@v1.1.5/escape.ts";
 
 // 結果ページ
 export class Result extends Page {
@@ -41,8 +42,8 @@ export class Result extends Page {
       ここが危ない！
       <div
         id="map"
-        data-line='${JSON.stringify(line)}'
-        data-danger-spots='${JSON.stringify(dangerSpots)}'
+        data-line='${escape(JSON.stringify(line))}'
+        data-danger-spots='${escape(JSON.stringify(dangerSpots))}'
       ></div>
       <ol style='text-align: left'>
         ${da}
