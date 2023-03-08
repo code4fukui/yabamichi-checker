@@ -35,7 +35,7 @@ export class Result extends Page {
     return renderToString(
       `
       <script type="module" src="./result.js"></script>
-      ここが危ない！
+      <h1>ここが危ない！</h1>
       <div
         id="map"
         data-line='<%= JSON.stringify(line) %>'
@@ -47,6 +47,13 @@ export class Result extends Page {
         <% } %>
       </ol>
       <a href="/"><button>最初から</button></a>
+      <style>
+      h1 {
+        font-size: 300%;
+        margin: .2em;
+        color: red;
+      }
+      </style>
     `,
       { line, dangerSpots },
     );
