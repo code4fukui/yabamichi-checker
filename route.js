@@ -1,4 +1,4 @@
-import { Geo3x3 } from "https://taisukef.github.io/Geo3x3/Geo3x3.js";
+import { Geo3x3 } from "./deps.js";
 
 // 一点
 export class Point {

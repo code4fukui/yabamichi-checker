@@ -1,6 +1,6 @@
 import { Page } from "./page.js";
 import { Point } from "./route.js";
-import { escape } from "https://deno.land/x/html_escape@v1.1.5/escape.ts";
+import { renderToString } from "./deps.js";
 
 // 結果ページ
 export class Result extends Page {
@@ -32,23 +32,23 @@ export class Result extends Page {
       }
     }
 
-    let da = "";
-    for (const d of dangerSpots) {
-      da += `<li>${d.txt}</li>`;
-    }
-
-    return `
+    return renderToString(
+      `
       <script type="module" src="./result.js"></script>
       ここが危ない！
       <div
         id="map"
-        data-line='${escape(JSON.stringify(line))}'
-        data-danger-spots='${escape(JSON.stringify(dangerSpots))}'
+        data-line='<%= JSON.stringify(line) %>'
+        data-danger-spots='<%= JSON.stringify(dangerSpots) %>'
       ></div>
       <ol style='text-align: left'>
-        ${da}
+        <% for (const d of dangerSpots) { %>
+          <li><%- d.txt %></li>
+        <% } %>
       </ol>
       <a href="/"><button>最初から</button></a>
-    `;
+    `,
+      { line, dangerSpots },
+    );
   }
 }
