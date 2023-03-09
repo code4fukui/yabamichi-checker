@@ -1,0 +1,22 @@
+<%- await include("header.ejs") %>
+<script type="module" src="./result.js"></script>
+<h1>ここが危ない！</h1>
+<div
+  id="map"
+  data-line='<%= JSON.stringify(line) %>'
+  data-danger-spots='<%= JSON.stringify(dangerSpots) %>'
+></div>
+<ol style='text-align: left'>
+  <% for (const d of dangerSpots) { %>
+    <li><%- d.txt %></li>
+  <% } %>
+</ol>
+<a href="/"><button>最初から</button></a>
+<style>
+h1 {
+  font-size: 300%;
+  margin: .2em;
+  color: red;
+}
+</style>
+<%- await include("footer.ejs") %>
