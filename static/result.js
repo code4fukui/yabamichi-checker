@@ -2,6 +2,8 @@ import { showMap } from "./map.js";
 
 onload = () => {
   const mapE = document.getElementById("map");
+  const showRanking = document.getElementById("show-ranking");
+
   const line = JSON.parse(mapE.dataset.line);
   const dangerSpots = JSON.parse(mapE.dataset.dangerSpots);
 
@@ -40,4 +42,35 @@ onload = () => {
       .addTo(map);
     i++;
   }
+
+  showRanking.onclick = () => {
+    const data = [
+      {
+        img: "1.png",
+        txt: "県道212号と日野川堤防との交差点<br>事故件数4回",
+        lat: 35.918849,
+        lng: 136.174519,
+      },
+      {
+        img: "2.png",
+        txt: "塚町交差点と国高小学校のちょうど中間地点にある交差点<br>事故件数2回",
+        lat: 35.912397,
+        lng: 136.188945,
+      },
+      {
+        img: "3.png",
+        txt: "武生高校校庭の東側<br>事故件数2回",
+        lat: 35.910282,
+        lng: 136.177118,
+      },
+    ];
+    for (const d of data) {
+      const icon = new LeafIcon({
+        iconUrl: d.img,
+      });
+      new L.Marker([d.lat, d.lng], { icon })
+        .bindPopup(d.txt)
+        .addTo(map);
+    }
+  };
 };
