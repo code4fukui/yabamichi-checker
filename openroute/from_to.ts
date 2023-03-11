@@ -9,10 +9,9 @@ export class FromTo {
 
   /** ルート検索 */
   async searchRoute() {
-    // const key = Deno.env.get("token");
-    const key = "5b3ce3597851110001cf6248ff4f732cc2114434aeec97763f96b05c";
+    const key = Deno.env.get("token");
     if (!key) {
-      console.error("open route service token is not defined");
+      console.error("open route service key is not defined");
     }
     const url =
       `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${key}&start=${this.from.lng},${this.from.lat}&end=${this.to.lng},${this.to.lat}`;

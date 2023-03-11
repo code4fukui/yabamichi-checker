@@ -1,5 +1,6 @@
 {
   "tasks": {
-    "start": "deno run -A --importmap=import_map.json --watch main.ts"
+    "start": "deno run --allow-read=data/,$PWD --allow-env=OPENROUTE_KEY --allow-net=api.openrouteservice.org,0.0.0.0:8000 main.ts",
+    "dev": "deno run -A --watch main.ts"
   }
 }

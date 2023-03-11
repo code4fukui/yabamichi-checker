@@ -1,8 +1,0 @@
-{
-  "imports": {
-    "server": "https://deno.land/std@0.179.0/http/server.ts",
-    "file_server": "https://deno.land/std@0.179.0/http/file_server.ts",
-    "dejs": "https://deno.land/x/dejs@0.10.3/mod.ts",
-    "Geo3x3": "https://taisukef.github.io/Geo3x3/Geo3x3.js"
-  }
-}

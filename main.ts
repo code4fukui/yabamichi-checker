@@ -1,5 +1,5 @@
-import { serve } from "server";
-import { serveDir } from "file_server";
+import { serve } from "./deps.ts";
+import { serveDir } from "./deps.ts";
 import { Index } from "./index/index.ts";
 import { Select } from "./select/select.ts";
 import { Result } from "./result/result.ts";

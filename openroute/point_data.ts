@@ -1,4 +1,4 @@
-import { Geo3x3 } from "Geo3x3";
+import { Geo3x3 } from "../deps.ts";
 
 // データ取得
 const resp = await Deno.readTextFile(`${Deno.cwd()}/data/data.json`);

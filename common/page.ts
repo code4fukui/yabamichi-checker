@@ -1,4 +1,4 @@
-import { renderFileToString } from "dejs";
+import { renderFileToString } from "../deps.ts";
 
 /** ページ */
 export abstract class Page {
