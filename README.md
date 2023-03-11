@@ -32,3 +32,10 @@ export OPENROUTE_KEY=API_KEI
 
 3. deno task start
 4. open [http://localhost:8000/](http://localhost:8000/)
+
+## Thanks
+* 絵文字 [Twemoji](https://twemoji.twitter.com/)
+* 地図 [Leaflet](https://leafletjs.com/)
+* 座標変換 [Geo3x3](https://geo3x3.com/)
+* テンプレートエンジン [dejs](https://github.com/syumai/dejs)
+* データ [キッズセーフ](https://github.com/code4fukui/kunitaka)
