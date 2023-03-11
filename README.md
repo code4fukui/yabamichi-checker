@@ -27,7 +27,7 @@
 2. 環境変数 token を設定
 
 ```sh
-export token=API_KEI
+export OPENROUTE_KEY=API_KEI
 ```
 
 3. deno task start

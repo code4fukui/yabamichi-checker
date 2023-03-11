@@ -9,7 +9,7 @@ export class FromTo {
 
   /** ルート検索 */
   async searchRoute() {
-    const key = Deno.env.get("token");
+    const key = Deno.env.get("OPENROUTE_KEY");
     if (!key) {
       console.error("open route service key is not defined");
     }
