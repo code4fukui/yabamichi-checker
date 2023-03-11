@@ -32,7 +32,7 @@ onload = () => {
   });
 
   const icon = new LeafIcon({
-    iconUrl: "./warning.png",
+    iconUrl: "warning.png",
   });
   for (const spot of dangerSpots) {
     const txt = spot.txt.replaceAll("\n", "<br>");
@@ -53,7 +53,8 @@ onload = () => {
       },
       {
         img: "2.png",
-        txt: "塚町交差点と国高小学校のちょうど中間地点にある交差点<br>事故件数2回",
+        txt:
+          "塚町交差点と国高小学校のちょうど中間地点にある交差点<br>事故件数2回",
         lat: 35.912397,
         lng: 136.188945,
       },
