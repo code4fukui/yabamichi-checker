@@ -1,5 +1,5 @@
-<%- await include("header.ejs") %>
-<script type="module" src="./select.js"></script>
+<%- await include("common/header.ejs") %>
+<script type="module" src="/select.js"></script>
 <div id="map"></div>
 <div id="select-msg">出発地をタップしてください</div>
 <button id="ok" style="display: none">OK</button>
@@ -10,4 +10,4 @@
   <input type="hidden" name="to_lng" id="to-lng"/>
   <button id="submit" style="display: none">OK</button>
 </form>
-<%- await include("footer.ejs") %>
+<%- await include("common/footer.ejs") %>

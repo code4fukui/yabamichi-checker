@@ -1,56 +1,28 @@
-import { Geo3x3 } from "./deps.js";
+import { Point } from "./point.ts";
 
-// 一点
-export class Point {
-  constructor(lat, lng) {
-    this.lat = lat;
-    this.lng = lng;
-  }
-
-  to(point) {
-    return new FromTo(this, point);
-  }
-
-  // 危険地帯抽出
-  searchSpot() {
-    return Point.data.filter((a) => {
-      const point = new Point(a.lat, a.lng);
-      const fromTo = this.to(point);
-      const dist = fromTo.distance();
-      return dist < 0.1;
-    });
-  }
-}
-
-// データ取得
-const resp = await Deno.readTextFile("./data.json");
-Point.data = JSON.parse(resp).map((row) => {
-  const safePos = Geo3x3.decode(row.geo);
-  return {
-    lat: safePos.lat,
-    lng: safePos.lng,
-    txt: row.txt,
-  };
-});
-
-// 始点終点
+/** 始点終点 */
 export class FromTo {
-  constructor(from, to) {
-    this.from = from;
-    this.to = to;
-  }
+  constructor(
+    public from: Point,
+    public to: Point,
+  ) {}
 
+  /** ルート検索 */
   async searchRoute() {
-    const key = Deno.env.get("token");
+    // const key = Deno.env.get("token");
+    const key = "5b3ce3597851110001cf6248ff4f732cc2114434aeec97763f96b05c";
+    if (!key) {
+      console.error("open route service token is not defined");
+    }
     const url =
       `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${key}&start=${this.from.lng},${this.from.lat}&end=${this.to.lng},${this.to.lat}`;
     const resp = await fetch(url);
     const json = await resp.json();
-    const coords = json.features[0].geometry.coordinates;
+    const coords = json.features[0].geometry.coordinates as number[][];
     return coords.map((a) => new Point(a[1], a[0]));
   }
 
-  // 距離計算
+  /** 距離計算 */
   distance(unit = "K") {
     const lat1 = this.from.lat;
     const lon1 = this.from.lng;
