@@ -1,8 +1,9 @@
 import { pointData } from "./point_data.ts";
 import { FromTo } from "./from_to.ts";
+import { IPoint } from "../common/types.ts";
 
 /** 一点 */
-export class Point {
+export class Point implements IPoint {
   constructor(
     public lat: number,
     public lng: number,

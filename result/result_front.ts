@@ -1,13 +1,14 @@
 /// <reference lib="dom" />
 
 import { L, showMap } from "../common/map.ts";
+import { IDangerSpot, IPoint } from "../common/types.ts";
 
 export function result() {
-  const mapE = document.getElementById("map")! as HTMLElement;
+  const mapE: HTMLElement = document.getElementById("map")!;
   const showRanking = document.getElementById("show-ranking")!;
 
-  const line = JSON.parse(mapE.dataset.line!);
-  const dangerSpots = JSON.parse(mapE.dataset.dangerSpots!);
+  const line: IPoint[] = JSON.parse(mapE.dataset.line!);
+  const dangerSpots: IDangerSpot[] = JSON.parse(mapE.dataset.dangerSpots!);
 
   const map = showMap("map");
   const opt = {
