@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 
-import { L, showMap } from "./map.ts";
+import { L, showMap } from "../common/map.ts";
 
 export function select() {
   const selectMsg = document.getElementById("select-msg")!;
