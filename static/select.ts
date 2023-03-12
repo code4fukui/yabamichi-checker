@@ -1,20 +1,23 @@
-import { showMap } from "./map.js";
+/// <reference lib="dom" />
 
-onload = () => {
-  const selectMsg = document.getElementById("select-msg");
-  const fromLat = document.getElementById("from-lat");
-  const fromLng = document.getElementById("from-lng");
-  const toLat = document.getElementById("to-lat");
-  const toLng = document.getElementById("to-lng");
-  const ok = document.getElementById("ok");
-  const submit = document.getElementById("submit");
+import { L, showMap } from "./map.ts";
+
+export function select() {
+  const selectMsg = document.getElementById("select-msg")!;
+  const fromLat = document.getElementById("from-lat") as HTMLInputElement;
+  const fromLng = document.getElementById("from-lng") as HTMLInputElement;
+  const toLat = document.getElementById("to-lat") as HTMLInputElement;
+  const toLng = document.getElementById("to-lng") as HTMLInputElement;
+  const ok = document.getElementById("ok")!;
+  const submit = document.getElementById("submit")!;
 
   // 地図
   const map = showMap("map");
 
   let homeSelected = false;
-  let homeMarker, schoolMarker;
-  map.on("click", (e) => {
+  let homeMarker: any;
+  let schoolMarker: any;
+  map.on("click", (e: any) => {
     if (!homeSelected) {
       // 出発地選択
       if (homeMarker) {
@@ -43,4 +46,4 @@ onload = () => {
     ok.style.display = "none";
     homeSelected = true;
   };
-};
+}

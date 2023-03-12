@@ -1,11 +1,11 @@
-import { showMap } from "./map.js";
+import { L, showMap } from "./map.ts";
 
-onload = () => {
-  const mapE = document.getElementById("map");
-  const showRanking = document.getElementById("show-ranking");
+export function result() {
+  const mapE = document.getElementById("map")! as HTMLElement;
+  const showRanking = document.getElementById("show-ranking")!;
 
-  const line = JSON.parse(mapE.dataset.line);
-  const dangerSpots = JSON.parse(mapE.dataset.dangerSpots);
+  const line = JSON.parse(mapE.dataset.line!);
+  const dangerSpots = JSON.parse(mapE.dataset.dangerSpots!);
 
   const map = showMap("map");
   const opt = {
@@ -74,4 +74,4 @@ onload = () => {
         .addTo(map);
     }
   };
-};
+}
