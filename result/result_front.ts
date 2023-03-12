@@ -1,4 +1,4 @@
-import { L, showMap } from "./map.ts";
+import { L, showMap } from "../common/map.ts";
 
 export function result() {
   const mapE = document.getElementById("map")! as HTMLElement;

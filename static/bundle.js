@@ -1,4 +1,4 @@
-// static/map.ts
+// common/map.ts
 import L from "https://code4sabae.github.io/leaflet-mjs/leaflet.mjs";
 var tile = "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png";
 var attribution = '<a href="https://maps.gsi.go.jp/development/ichiran.html">\u56FD\u571F\u5730\u7406\u9662</a>';
@@ -10,7 +10,7 @@ function showMap(id, latlon = [35.91172, 136.187928], zoom = 15) {
   return map;
 }
 
-// static/select.ts
+// select/select_front.ts
 function select() {
   const selectMsg = document.getElementById("select-msg");
   const fromLat = document.getElementById("from-lat");
@@ -51,7 +51,7 @@ function select() {
   };
 }
 
-// static/result.ts
+// result/result_front.ts
 function result() {
   const mapE = document.getElementById("map");
   const showRanking = document.getElementById("show-ranking");
