@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import { L, showMap } from "../common/map.ts";
 
 export function result() {

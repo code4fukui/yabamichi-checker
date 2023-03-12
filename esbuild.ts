@@ -4,6 +4,7 @@ await esbuild.build({
   entryPoints: ["./common/front.ts"],
   outfile: "./static/bundle.js",
   format: "esm",
+  sourcemap: true,
   bundle: true,
   watch: true,
 });
