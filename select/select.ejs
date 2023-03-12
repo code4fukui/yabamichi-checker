@@ -1,5 +1,8 @@
 <%- await include("common/header.ejs") %>
-<script type="module" src="/select.js"></script>
+<script type="module">
+  import { select } from "/bundle.js";
+  select();
+</script>
 <div id="map"></div>
 <div id="select-msg">出発地をタップしてください</div>
 <button id="ok" style="display: none">OK</button>

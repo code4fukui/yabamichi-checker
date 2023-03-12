@@ -9,7 +9,7 @@ const opt = { attribution, maxZoom };
 // 地図を表示
 // https://leafletjs.com/reference.html
 export function showMap(
-  id,
+  id: string,
   latlon = [35.91172, 136.187928],
   zoom = 15,
 ) {
@@ -17,3 +17,5 @@ export function showMap(
   L.tileLayer(tile, opt).addTo(map);
   return map;
 }
+
+export { L };
