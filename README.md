@@ -24,18 +24,15 @@
 ## 起動方法
 
 1. [openrouteservice APIのAPIキーを取得](https://api.openrouteservice.org/)
-2. 環境変数 token を設定
-
-```sh
-export OPENROUTE_KEY=API_KEI
-```
+2. .envファイルにAPIキーを設定
 
 3. deno task start
 4. open [http://localhost:8000/](http://localhost:8000/)
 
 ## Thanks
-* 絵文字 [Twemoji](https://twemoji.twitter.com/)
-* 地図 [Leaflet](https://leafletjs.com/)
-* 座標変換 [Geo3x3](https://geo3x3.com/)
-* テンプレートエンジン [dejs](https://github.com/syumai/dejs)
-* データ [キッズセーフ](https://github.com/code4fukui/kunitaka)
+
+- 絵文字 [Twemoji](https://twemoji.twitter.com/)
+- 地図 [Leaflet](https://leafletjs.com/)
+- 座標変換 [Geo3x3](https://geo3x3.com/)
+- テンプレートエンジン [dejs](https://github.com/syumai/dejs)
+- データ [キッズセーフ](https://github.com/code4fukui/kunitaka)
