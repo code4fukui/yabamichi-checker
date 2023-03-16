@@ -1,8 +1,5 @@
-<%- await include("common/header.ejs") %>
-<script type="module">
-  import { result } from "/bundle.js";
-  result();
-</script>
+<%- await include("header.ejs") %>
+<script type="module" src="result.js"></script>
 <h1>ここが危ない！</h1>
 <div style="text-align: right;">
   <a id="show-ranking" style="cursor: pointer">危険度ランキングを見る</a>
@@ -25,4 +22,4 @@ h1 {
   color: red;
 }
 </style>
-<%- await include("common/footer.ejs") %>
+<%- await include("footer.ejs") %>

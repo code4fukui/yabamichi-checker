@@ -1,8 +1,5 @@
-<%- await include("common/header.ejs") %>
-<script type="module">
-  import { select } from "/bundle.js";
-  select();
-</script>
+<%- await include("header.ejs") %>
+<script type="module" src="select.js"></script>
 <div id="map"></div>
 <div id="select-msg">出発地をタップしてください</div>
 <button id="ok" style="display: none">OK</button>
@@ -13,4 +10,4 @@
   <input type="hidden" name="to_lng" id="to-lng"/>
   <button id="submit" style="display: none">OK</button>
 </form>
-<%- await include("common/footer.ejs") %>
+<%- await include("footer.ejs") %>
