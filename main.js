@@ -9,12 +9,12 @@ await load({
   export: true,
 });
 
-const router = new Map<string, Page>();
+const router = new Map();
 router.set("/", new Index());
 router.set("/select", new Select());
 router.set("/result", new Result());
 
-serve(async (req: Request) => {
+serve(async (req) => {
   const { pathname } = new URL(req.url);
 
   const page = router.get(pathname);
