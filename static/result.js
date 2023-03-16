@@ -1,14 +1,11 @@
-/// <reference lib="dom" />
+import { L, showMap } from "./map.js";
 
-import { L, showMap } from "../common/map.ts";
-import { IDangerSpot, IPoint } from "../common/types.ts";
+onload = () => {
+  const mapE = document.getElementById("map");
+  const showRanking = document.getElementById("show-ranking");
 
-export function result() {
-  const mapE: HTMLElement = document.getElementById("map")!;
-  const showRanking = document.getElementById("show-ranking")!;
-
-  const line: IPoint[] = JSON.parse(mapE.dataset.line!);
-  const dangerSpots: IDangerSpot[] = JSON.parse(mapE.dataset.dangerSpots!);
+  const line = JSON.parse(mapE.dataset.line);
+  const dangerSpots = JSON.parse(mapE.dataset.dangerSpots);
 
   const map = showMap("map");
   const opt = {
@@ -77,4 +74,4 @@ export function result() {
         .addTo(map);
     }
   };
-}
+};
