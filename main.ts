@@ -108,7 +108,7 @@ async function result(req: Request) {
       dangerSpots.push(spot);
     }
   }
-  return await renderPage("result.ejs", { line, dangerSpots });
+  return { line, dangerSpots };
 }
 
 /** データ取得 */
@@ -133,10 +133,11 @@ async function loadData() {
 async function handler(req: Request) {
   const { pathname } = new URL(req.url);
   const path = `${req.method} ${pathname}`;
+
   switch (path) {
     case "GET /": return await renderPage("index.ejs");
     case "GET /select": return await renderPage("select.ejs");
-    case "GET /result": return await result(req);
+    case "GET /result": return await renderPage("result.ejs", await result(req));
   }
   return serveDir(req, { fsRoot: "./static/" });
 }
