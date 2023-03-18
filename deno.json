@@ -1,6 +1,6 @@
 {
   "lock": false,
   "tasks": {
-    "start": "deno run --allow-read=data/,$PWD --allow-env --allow-net=api.openrouteservice.org,0.0.0.0:8000 --watch main.js"
+    "start": "deno run --allow-read=data/,$PWD --allow-env --allow-net=api.openrouteservice.org,0.0.0.0:8000 --watch main.ts"
   }
 }
