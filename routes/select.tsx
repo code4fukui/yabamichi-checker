@@ -1,12 +1,14 @@
 import { Button } from "@/components/Button.tsx";
+import { Map } from "@/components/Map.tsx";
 
 export default function Select() {
   return (
     <>
-      <link rel="stylesheet" type="text/css" href="https://code4sabae.github.io/leaflet-mjs/leaflet.css" />
       <script type="module" src="select.js"></script>
-      <div id="map" class="w-full h-96"></div>
-      <div id="select-msg" class="text-center">出発地をタップしてください</div>
+      <Map/>
+      <div id="select-msg" class="text-center">
+        出発地をタップしてください
+      </div>
       <div class="text-center">
         <Button id="ok" style="display: none">OK</Button>
       </div>

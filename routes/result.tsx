@@ -2,6 +2,8 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { searchRoute, PointData, searchSpot } from "@/utils/checker.ts";
 import type { Pos } from "@/utils/checker.ts";
 import { Button } from "@/components/Button.tsx";
+import { DangerList } from "@/components/DangerList.tsx";
+import { Map } from "@/components/Map.tsx";
 
 type PropData = {
   dangerSpots: PointData[];
@@ -50,25 +52,19 @@ export default function Result(props: PageProps<PropData>) {
   return (
     <>
       <script type="module" src="result.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://code4sabae.github.io/leaflet-mjs/leaflet.css" />
       <h1 class="text-center text-red-500 text-5xl font-bold mt-8">ここが危ない！</h1>
       <div style="text-align: right;">
         <a id="show-ranking" class="text-blue-400 cursor-pointer">危険度ランキングを見る</a>
       </div>
-      <div
-        id="map"
-        class="w-full h-96"
+      <Map
         data-line={JSON.stringify(line)}
-        data-danger-spots={JSON.stringify(dangerSpots)}
-      ></div>
-      <ol class="list-inside list-decimal m-5">
-        {dangerSpots.map((d) => <li>{d.txt}</li>)}
-      </ol>
+        data-danger-spots={JSON.stringify(dangerSpots)} />
+      <DangerList dangerSpots={dangerSpots}/>
       <div class="text-center">
         <a href="/">
           <Button>最初から</Button>
         </a>
-      </div>
+      </div>k
     </>
   );
 }
