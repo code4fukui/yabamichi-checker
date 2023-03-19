@@ -5,7 +5,7 @@ const showRanking = document.getElementById("show-ranking");
 const map = showMap("map");
 
 /** 経路表示 */
-function drawLine() {
+const drawLine = () => {
   const line = JSON.parse(mapE.dataset.line);
   const opt = {
     "color": "#FF0000",
@@ -16,7 +16,7 @@ function drawLine() {
 }
 
 /** 危険地帯表示 */
-function drawDangerLine() {
+const drawDangerLine = () =>{
   const dangerSpots = JSON.parse(mapE.dataset.dangerSpots);
   const bindOpt = {
     permanent: true,
@@ -47,7 +47,7 @@ function drawDangerLine() {
 }
 
 /** ランキング表示 */
-function drawRanking() {
+const drawRanking = () => {
   const data = [
     {
       img: "1.png",

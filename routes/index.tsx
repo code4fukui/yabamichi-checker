@@ -1,6 +1,6 @@
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { Button } from "@/components/Button.tsx";
 
-export default function(props: PageProps) {
+export default function Index() {
   return (
     <>
       <img src="logo.png" class="mx-auto w-64 mt-6"/>
@@ -11,7 +11,7 @@ export default function(props: PageProps) {
       </div>
       <div class="mt-2 mb-2 text-center">
         <a href="select">
-          <button class="rounded bg-gray-300 pl-7 pr-7 pt-2 pb-2">始める</button>
+          <Button>始める</Button>
         </a>
       </div>
     </>

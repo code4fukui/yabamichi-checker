@@ -1,6 +1,12 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { searchRoute, PointData, searchSpot } from "../utils/checker.ts";
-import type { Pos } from "../utils/checker.ts";
+import { searchRoute, PointData, searchSpot } from "@/utils/checker.ts";
+import type { Pos } from "@/utils/checker.ts";
+import { Button } from "@/components/Button.tsx";
+
+type PropData = {
+  dangerSpots: PointData[];
+  line: Pos[];
+};
 
 export const handler: Handlers<PropData> = {
   async GET(req, ctx) {
@@ -38,12 +44,7 @@ export const handler: Handlers<PropData> = {
   }
 }
 
-interface PropData {
-  dangerSpots: PointData[];
-  line: Pos[];
-}
-
-export default function(props: PageProps<PropData>) {
+export default function Result(props: PageProps<PropData>) {
   const line = props.data.line;
   const dangerSpots = props.data.dangerSpots;
   return (
@@ -65,7 +66,7 @@ export default function(props: PageProps<PropData>) {
       </ol>
       <div class="text-center">
         <a href="/">
-          <button class="rounded bg-gray-300 pl-7 pr-7 pt-2 pb-2">最初から</button>
+          <Button>最初から</Button>
         </a>
       </div>
     </>
