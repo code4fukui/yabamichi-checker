@@ -1,6 +1,1 @@
-.replit
-replit.nix
-.deno/*
-lock.json
 .env
-.vscode/*
