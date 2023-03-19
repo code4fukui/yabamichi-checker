@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { searchRoute, PointData, searchSpot } from "@/utils/checker.ts";
+import { searchRoute, PointData, searchDangerSpots } from "@/utils/checker.ts";
 import type { Pos } from "@/utils/checker.ts";
 import { Button } from "@/components/Button.tsx";
 import { DangerList } from "@/components/DangerList.tsx";
@@ -26,22 +26,7 @@ export const handler: Handlers<PropData> = {
     const from = { lat: Number(fromLat), lng: Number(fromLng) };
     const to = { lat: Number(toLat), lng: Number(toLng) };
     const line = await searchRoute(from, to);
-
-    // 危険地帯表示
-    const set = new Set();
-    const dangerSpots: PointData[] = [];
-    for (const pos of line) {
-      const point = { lat: pos.lat, lng: pos.lng };
-      const spots = searchSpot(point);
-      for (const spot of spots) {
-        const key = JSON.stringify(spot);
-        if (set.has(key)) {
-          continue;
-        }
-        set.add(key);
-        dangerSpots.push(spot);
-      }
-    }
+    const dangerSpots = searchDangerSpots(line);
     return ctx.render({ line, dangerSpots });
   }
 }

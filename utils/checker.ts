@@ -69,10 +69,29 @@ export const searchRoute = async (from: Pos, to: Pos) => {
 };
 
 /** 危険地帯抽出 */
-export const searchSpot = (pos: Pos) => {
+const searchSpot = (pos: Pos) => {
   return pointData.filter((a) => {
     const point = { lat: a.pos.lat, lng: a.pos.lng };
     const dist = distance(pos, point);
     return dist < 0.1;
   });
+};
+
+export const searchDangerSpots = (line: Pos[]) => {
+  // 危険地帯表示
+  const set = new Set();
+  const dangerSpots: PointData[] = [];
+  for (const pos of line) {
+    const point = { lat: pos.lat, lng: pos.lng };
+    const spots = searchSpot(point);
+    for (const spot of spots) {
+      const key = JSON.stringify(spot);
+      if (set.has(key)) {
+        continue;
+      }
+      set.add(key);
+      dangerSpots.push(spot);
+    }
+  }
+  return dangerSpots;
 };
