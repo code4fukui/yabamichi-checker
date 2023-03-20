@@ -1,7 +1,6 @@
-import { Button } from "@/components/Button.tsx";
-import { Map } from "@/components/Map.tsx";
+import { Button, Map } from "../components.jsx";
 
-export default function Select() {
+export default function() {
   return (
     <>
       <script type="module" src="select.js"></script>
@@ -24,3 +23,4 @@ export default function Select() {
     </>
   );
 }
+

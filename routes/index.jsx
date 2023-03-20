@@ -1,6 +1,6 @@
-import { Button } from "@/components/Button.tsx";
+import { Button } from "../components.jsx";
 
-export default function Index() {
+export default function() {
   return (
     <>
       <img src="logo.png" class="mx-auto w-64 mt-6"/>

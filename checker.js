@@ -1,6 +1,6 @@
 import { Geo3x3 } from "https://taisukef.github.io/Geo3x3/Geo3x3.ts";
 
-import data from "@/data/data.json" assert { type: "json" };
+import data from "./data.json" assert { type: "json" };
 
 const pointData = data.flatMap((row) => {
   const safePos = Geo3x3.decode(row.geo);
@@ -8,7 +8,7 @@ const pointData = data.flatMap((row) => {
     return [];
   }
   return {
-    pos: {
+    pos: { 
       lat: safePos.lat,
       lng: safePos.lng,
     },
@@ -16,18 +16,8 @@ const pointData = data.flatMap((row) => {
   };
 });
 
-export type Pos = {
-  lat: number;
-  lng: number;
-};
-
-export type PointData = {
-  pos: Pos;
-  txt: string;
-};
-
 /** 距離計算 */
-const distance = (from: Pos, to: Pos, unit = "K") => {
+const distance = (from, to, unit = "K") => {
   const lat1 = from.lat;
   const lon1 = from.lng;
   const lat2 = to.lat;
@@ -55,7 +45,7 @@ const distance = (from: Pos, to: Pos, unit = "K") => {
 }
 
 // ルート検索
-export const searchRoute = async (from: Pos, to: Pos) => {
+export const searchRoute = async (from, to) => {
   const key = Deno.env.get("OPENROUTE_KEY");
   if (!key) {
     console.error("open route service key is not defined");
@@ -64,12 +54,12 @@ export const searchRoute = async (from: Pos, to: Pos) => {
     `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${key}&start=${from.lng},${from.lat}&end=${to.lng},${to.lat}`;
   const resp = await fetch(url);
   const json = await resp.json();
-  const coords = json.features[0].geometry.coordinates as number[][];
-  return coords.map((a) => ({ lat: a[1], lng: a[0] })) as Pos[];
+  const coords = json.features[0].geometry.coordinates;
+  return coords.map((a) => ({ lat: a[1], lng: a[0] }));
 };
 
 /** 危険地帯抽出 */
-const searchSpot = (pos: Pos) => {
+const searchSpot = (pos) => {
   return pointData.filter((a) => {
     const point = { lat: a.pos.lat, lng: a.pos.lng };
     const dist = distance(pos, point);
@@ -77,10 +67,10 @@ const searchSpot = (pos: Pos) => {
   });
 };
 
-export const searchDangerSpots = (line: Pos[]) => {
+export const searchDangerSpots = (line) => {
   // 危険地帯表示
   const set = new Set();
-  const dangerSpots: PointData[] = [];
+  const dangerSpots = [];
   for (const pos of line) {
     const point = { lat: pos.lat, lng: pos.lng };
     const spots = searchSpot(point);
