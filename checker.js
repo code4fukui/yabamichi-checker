@@ -17,7 +17,7 @@ const pointData = data.flatMap((row) => {
 });
 
 /** 距離計算 */
-const distance = (from, to, unit = "K") => {
+function distance(from, to, unit = "K") {
   const lat1 = from.lat;
   const lon1 = from.lng;
   const lat2 = to.lat;
@@ -45,7 +45,7 @@ const distance = (from, to, unit = "K") => {
 }
 
 // ルート検索
-export const searchRoute = async (from, to) => {
+export async function searchRoute(from, to) {
   const key = Deno.env.get("OPENROUTE_KEY");
   if (!key) {
     console.error("open route service key is not defined");
@@ -56,18 +56,18 @@ export const searchRoute = async (from, to) => {
   const json = await resp.json();
   const coords = json.features[0].geometry.coordinates;
   return coords.map((a) => ({ lat: a[1], lng: a[0] }));
-};
+}
 
 /** 危険地帯抽出 */
-const searchSpot = (pos) => {
+function searchSpot(pos) {
   return pointData.filter((a) => {
     const point = { lat: a.pos.lat, lng: a.pos.lng };
     const dist = distance(pos, point);
     return dist < 0.1;
   });
-};
+}
 
-export const searchDangerSpots = (line) => {
+export function searchDangerSpots(line) {
   // 危険地帯表示
   const set = new Set();
   const dangerSpots = [];
@@ -84,4 +84,4 @@ export const searchDangerSpots = (line) => {
     }
   }
   return dangerSpots;
-};
+}

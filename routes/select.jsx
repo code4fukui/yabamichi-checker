@@ -1,8 +1,10 @@
 import { Button, Map, Params } from "../components.jsx";
 
-export default function() {
-  const Params = ({ names }) => names.map(name => <input type="hidden" name={name} id={name}/>);
+function Params({ names }) {
+  return names.map(name => <input type="hidden" name={name} id={name}/>);
+}
 
+export default function() {
   return (
     <>
       <script type="module" src="select.js"></script>

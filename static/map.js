@@ -1,12 +1,13 @@
 import L from "https://code4sabae.github.io/leaflet-mjs/leaflet.mjs";
+export { L };
 
 // 地図を表示
 // https://leafletjs.com/reference.html
-const showMap = (
+export function showMap(
   id,
   latlon = [35.91172, 136.187928],
   zoom = 15,
-) => {
+) {
   const tile = "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png";
   const attribution =
     '<a href="https://maps.gsi.go.jp/development/ichiran.html">国土地理院</a>';
@@ -16,5 +17,3 @@ const showMap = (
   L.tileLayer(tile, opt).addTo(map);
   return map;
 }
-
-export { L, showMap };

@@ -22,13 +22,15 @@ export const handler = {
   }
 };
 
-export default function({ data }) {
-  const DangerList = ({ dangerSpots }) => (
+function DangerList({ dangerSpots }) {
+  return (
     <ol class="list-inside list-decimal m-5">
-      {dangerSpots.map((d) => <li class="mt-2" dangerouslySetInnerHTML={{__html: d.txt}}></li>)}
+      {dangerSpots.map((d) => <li class="mt-2" dangerouslySetInnerHTML={{__html: d.txt.replaceAll("\n", "<br/>")}}></li>)}
     </ol>
   );
+}
 
+export default function({ data }) {
   return (
     <>
       <script type="module" src="result.js"></script>
