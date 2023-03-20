@@ -14,8 +14,8 @@ export const handler = {
       throw new Error();
     }
   
-    const from = { lat: Number(fromLat), lng: Number(fromLng) };
-    const to = { lat: Number(toLat), lng: Number(toLng) };
+    const from = { lat: fromLat, lng: fromLng };
+    const to = { lat: toLat, lng: toLng };
     const line = await searchRoute(from, to);
     const dangerSpots = searchDangerSpots(line);
     return ctx.render({ line, dangerSpots });
@@ -25,7 +25,7 @@ export const handler = {
 export default function({ data }) {
   const DangerList = ({ dangerSpots }) => (
     <ol class="list-inside list-decimal m-5">
-      {dangerSpots.map((d) => <li dangerouslySetInnerHTML={{__html: d.txt}}></li>)}
+      {dangerSpots.map((d) => <li class="mt-2" dangerouslySetInnerHTML={{__html: d.txt}}></li>)}
     </ol>
   );
 
@@ -44,7 +44,7 @@ export default function({ data }) {
         <a href="/">
           <Button>最初から</Button>
         </a>
-      </div>k
+      </div>
     </>
   );
 }

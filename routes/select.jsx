@@ -1,6 +1,8 @@
-import { Button, Map } from "../components.jsx";
+import { Button, Map, Params } from "../components.jsx";
 
 export default function() {
+  const Params = ({ names }) => names.map(name => <input type="hidden" name={name} id={name}/>);
+
   return (
     <>
       <script type="module" src="select.js"></script>
@@ -12,12 +14,9 @@ export default function() {
         <Button id="ok" style="display: none">OK</Button>
       </div>
       <form action="result">
-        <input type="hidden" name="from_lat" id="from-lat"/>
-        <input type="hidden" name="from_lng" id="from-lng"/>
-        <input type="hidden" name="to_lat" id="to-lat"/>
-        <input type="hidden" name="to_lng" id="to-lng"/>
+        <Params names={["from_lat", "from_lng", "to_lat", "to_lng"]}/>
         <div class="text-center">
-          <Button id="submit" style="display: none">OK</Button>
+          <Button id="submit" class="justify-center" style="display: none">OK</Button>
         </div>
       </form>
     </>

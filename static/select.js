@@ -1,10 +1,10 @@
 import { L, showMap } from "./map.js";
 
 const selectMsg = document.getElementById("select-msg");
-const fromLat = document.getElementById("from-lat");
-const fromLng = document.getElementById("from-lng");
-const toLat = document.getElementById("to-lat");
-const toLng = document.getElementById("to-lng");
+const fromLat = document.getElementById("from_lat");
+const fromLng = document.getElementById("from_lng");
+const toLat = document.getElementById("to_lat");
+const toLng = document.getElementById("to_lng");
 const ok = document.getElementById("ok");
 const submit = document.getElementById("submit");
 const map = showMap("map");
