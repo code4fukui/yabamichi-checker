@@ -1,8 +1,9 @@
 import L from "https://code4sabae.github.io/leaflet-mjs/leaflet.mjs";
+export { L };
 
 // 地図を表示
 // https://leafletjs.com/reference.html
-function showMap(
+export function showMap(
   id,
   latlon = [35.91172, 136.187928],
   zoom = 15,
@@ -16,5 +17,3 @@ function showMap(
   L.tileLayer(tile, opt).addTo(map);
   return map;
 }
-
-export { L, showMap };

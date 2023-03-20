@@ -1,41 +1,23 @@
 import { Geo3x3 } from "https://taisukef.github.io/Geo3x3/Geo3x3.ts";
 
-export interface Pos {
-  lat: number;
-  lng: number;
-}
+import data from "./data.json" assert { type: "json" };
 
-export interface PointData {
-  pos: Pos;
-  txt: string;
-}
-
-export interface Data {
-  geo: string;
-  txt: string;
-}
-
-/** データ取得 */
-export async function loadData() {
-  const resp = await Deno.readTextFile(`${Deno.cwd()}/data/data.json`);
-  return (JSON.parse(resp) as Data[])
-    .flatMap((row) => {
-      const safePos = Geo3x3.decode(row.geo);
-      if (!safePos) {
-        return [];
-      }
-      return {
-        pos: {
-          lat: safePos.lat,
-          lng: safePos.lng,
-        },
-        txt: row.txt,
-      };
-    }) as PointData[];
-}
+const pointData = data.flatMap((row) => {
+  const safePos = Geo3x3.decode(row.geo);
+  if (!safePos) {
+    return [];
+  }
+  return {
+    pos: { 
+      lat: safePos.lat,
+      lng: safePos.lng,
+    },
+    txt: row.txt,
+  };
+});
 
 /** 距離計算 */
-export function distance(from: Pos, to: Pos, unit = "K") {
+function distance(from, to, unit = "K") {
   const lat1 = from.lat;
   const lon1 = from.lng;
   const lat2 = to.lat;
@@ -44,8 +26,7 @@ export function distance(from: Pos, to: Pos, unit = "K") {
     return 0;
   } else {
     const theta = lon1 - lon2;
-    let dist =
-      Math.sin(lat1 * Math.PI / 180) * Math.sin(lat2 * Math.PI / 180) +
+    let dist = Math.sin(lat1 * Math.PI / 180) * Math.sin(lat2 * Math.PI / 180) +
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
         Math.cos(theta * Math.PI / 180);
     dist = Math.acos(dist);
@@ -64,7 +45,7 @@ export function distance(from: Pos, to: Pos, unit = "K") {
 }
 
 // ルート検索
-export async function searchRoute(from: Pos, to: Pos) {
+export async function searchRoute(from, to) {
   const key = Deno.env.get("OPENROUTE_KEY");
   if (!key) {
     console.error("open route service key is not defined");
@@ -73,17 +54,34 @@ export async function searchRoute(from: Pos, to: Pos) {
     `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${key}&start=${from.lng},${from.lat}&end=${to.lng},${to.lat}`;
   const resp = await fetch(url);
   const json = await resp.json();
-  const coords = json.features[0].geometry.coordinates as number[][];
-  return coords.map((a) => ({ lat: a[1], lng: a[0] })) as Pos[];
+  const coords = json.features[0].geometry.coordinates;
+  return coords.map((a) => ({ lat: a[1], lng: a[0] }));
 }
 
-export const pointData = await loadData();
-
 /** 危険地帯抽出 */
-export function searchSpot(pos: Pos) {
+function searchSpot(pos) {
   return pointData.filter((a) => {
-    const point = { lat: a.pos.lat, lng: a.pos.lng};
+    const point = { lat: a.pos.lat, lng: a.pos.lng };
     const dist = distance(pos, point);
     return dist < 0.1;
   });
+}
+
+export function searchDangerSpots(line) {
+  // 危険地帯表示
+  const set = new Set();
+  const dangerSpots = [];
+  for (const pos of line) {
+    const point = { lat: pos.lat, lng: pos.lng };
+    const spots = searchSpot(point);
+    for (const spot of spots) {
+      const key = JSON.stringify(spot);
+      if (set.has(key)) {
+        continue;
+      }
+      set.add(key);
+      dangerSpots.push(spot);
+    }
+  }
+  return dangerSpots;
 }
